@@ -26,7 +26,7 @@ app.use(cookieSession({
 
 
 // ROOT
-app.get('/api',(req,res)=>{
+app.get('/',(req,res)=>{
     res.status(200).send("Taskmaster here, what do you want?")
 })
 
@@ -36,7 +36,7 @@ app.listen(process.env.PORT,()=>{
 
 
 // CONTROLLERS
-app.use('/api/users', usersController)
-app.use('/api/projects', projectsController)
-app.use('/api/tasks', tasksController)
-app.use('/api/auth',authController)
+app.use('/users', usersController)
+app.use('/projects', projectsController)
+app.use('/tasks', tasksController)
+app.use('/auth',authController)
