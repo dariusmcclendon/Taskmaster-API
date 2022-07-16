@@ -12,10 +12,7 @@ let cors = require('cors')
 
 // CONFIG
 require('dotenv').config()
-app.use(cors({
-    origin: 'https://taskmaster-io.herokuapp.com',
-    credentials: true
-}))
+app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 app.use(cookieSession({
