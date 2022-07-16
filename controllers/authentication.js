@@ -6,25 +6,36 @@ let { User } = db
 
 auth.post('/signup', async (req,res)=>{
     let {password, ...rest} = req.body;
-    const newUser = await User.create({
-        ...rest,
-        password: await bcrypt.hash(password, 10)
-    })
-    res.json(newUser)
+    try {
+        const newUser = await User.create({
+            ...rest,
+            password: await bcrypt.hash(password, 10)
+        })
+        res.status(200).json(newUser)
+    } catch (err){
+        res.status(500).json(err)
+    }
+    
 })
 
 auth.post('/login/', async (req,res)=>{
-    let user = await User.findOne({
-        where: {username: req.body.username}
-    })
-    if (!user || !await bcrypt.compare(req.body.password, user.password)) {
-        res.status(404).json({
-            message: `Incorrect username or password.`
+    try {
+        let user = await User.findOne({
+            where: {username: req.body.username}
         })
-    } else {
-        req.session.user_id = user.user_id
-        res.status(200).json({user})
+        if (!user || !await bcrypt.compare(req.body.password, user.password)) {
+            res.status(404).json({
+                message: `Incorrect username or password.`
+            })
+        } else {
+            req.session.user_id = user.user_id
+            res.status(200).json({user})
+        }
     }
+   catch (err) {
+    console.log(err)
+    res.status(500).json(err)
+   }
 })
 
 auth.post('/signout/', async (req,res)=>{
