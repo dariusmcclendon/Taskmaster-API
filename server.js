@@ -8,11 +8,22 @@ let projectsController = require('./controllers/projects-controller')
 let tasksController = require('./controllers/tasks-controller')
 let authController = require('./controllers/authentication')
 let cors = require('cors')
+let whitelist = ['https://taskmaster-io.herokuapp.com/']
+let corsOptions = {
+    credentials : true,
+    origin: (origin, callback)=>{
+        if(whitelist.includes(origin))
+        return callback(null, true)
+
+        callback(new Error('Not allowed by CORS'))
+    }
+
+}
 // let { Sequelize } = require('sequelize')
 
 // CONFIG
 require('dotenv').config()
-app.use(cors())
+app.use(cors(corsOptions))
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 app.use(cookieSession({
