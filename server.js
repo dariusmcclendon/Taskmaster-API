@@ -11,13 +11,7 @@ let cors = require('cors')
 let whitelist = ['https://taskmaster-io.herokuapp.com/']
 let corsOptions = {
     credentials : true,
-    origin: (origin, callback)=>{
-        if(whitelist.includes(origin))
-        return callback(null, true)
-
-        callback(new Error('Not allowed by CORS'))
-    }
-
+    origin: true
 }
 // let { Sequelize } = require('sequelize')
 
