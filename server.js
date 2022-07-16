@@ -13,7 +13,7 @@ let cors = require('cors')
 // CONFIG
 require('dotenv').config()
 app.use(cors({
-    origin: Process.env.CLIENT_URL,
+    origin: 'https://taskmaster-io.herokuapp.com',
     credentials: true
 }))
 app.use(express.json())
